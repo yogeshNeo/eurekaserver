@@ -1,0 +1,171 @@
+#docker
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fssl https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+apt-cache policy docker-ce
+sudo apt install docker-ce
+sudo systemctl status docker
+
+
+docker
+docker docker-subcommand --help
+docker info
+
+docker run hello-world
+
+docker run -it ubuntu bash (optional)
+
+docker pull ubuntu
+docker images
+
+docker run -it ubuntu
+root@561b362aa24c
+
+apt install nodejs
+node -v
+v12.22.9
+
+exit
+
+docker ps
+docker ps -a
+docker ps -l
+
+docker start 561b362aa24c
+docker ps -a
+
+docker stop dazzling_taussig
+docker ps -a
+docker rm exciting_johnson
+docker ps -a
+
+
+sudo apt-get install ./docker-desktop-4.22.1-amd64.deb (optional)
+
+touch dockerfile
+ (in web service)
+docker build -t config-server .
+
+
+./gradlew clean bootjar
+config-server-0.0.1-snapshot.jar
+
+
+jar cvf config-server-app-1.0.jar src/main/java/com/configserver/configserverapplication.java
+
+from openjdk:17-alpine3.14
+workdir /application
+copy build/libs/config-server-app-1.0.jar ./
+
+cmd ["java", "-jar", "config-servers-app-1.0.jar"]
+copy cmd ["jar","cvf","config-server-app-1.0.jar","src/main/java/com/configserver/configserverapplication.java"] ./
+
+
+from openjdk:17-alpine3.14
+arg jar_file="/build/libs/*.jar"
+arg profile="dev"
+copy ${jar_file} app.jar
+entrypoint ["java","-xms1024m","-xmx4096m","-jar","-dspring.profiles.active=${profile}","/app.jar"]
+
+docker image ls
+
+docker run -dp 127.0.0.1:3000:3000 config-server
+
+
+java -xms1024m -xmx4096m -jar -dspring.profiles.active=dev config-server-0.0.1-snapshot.jar
+
+
+
+docker build -t config-server .
+
+docker run -dp 127.0.0.1:3000:3000 config-server
+
+docker tag config-server:latest config-server:latest
+
+sudo docker push config-server:latest
+
+docker run -p 127.0.0.1:8085 config-server:latest .
+
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+
+from openjdk:17-alpine3.14
+volume /tmp
+expose 8085
+arg jar_file="/build/libs/*.jar"
+add ${jar_file} app.jar
+entrypoint ["java","-xms1024m","-xmx4096m","-jar","-dspring.profiles.active=dev","/app.jar"]
+
+sudo docker build -t config-server .
+sudo docker ps -a 
+sudo docker image ls
+sudo docker run -p 8085:8085 config-server:latest .
+
+fuser -k 8761/tcp
+
+sudo docker build -t eureka-server .
+sudo docker run -p 8761:8761 eureka-server:latest .
+
+touch dockerfile
+
+sudo docker build -t api-gateway .
+sudo docker run -p 9090:9090 eureka-server:latest .
+
+./gradlew clean bootjar
+
+sudo docker build -t order .
+sudo docker run -p 8080:8080 order:latest .
+---------------------------------------------------------------------------------------------------------
+
+redis installation
+fuser -k 6379/tcp
+
+sudo docker network create redis-ntw
+sudo docker run --net redis-ntw -d --name redis -p 7000:7000 redis
+
+sudo docker inspect redis-ntw
+"IPv4Address": "172.20.0.2/16",   172.20.0.2
+
+docker exec -it c95b82fd46a2f46168d34d9ce15c574adff59a4f0569ad0e68c1527d33f0b2a6 redis-cli
+
+
+---------------------------------------------------------------------------------------------------------
+
+mysql
+
+sudo docker pull mysql/mysql-server:latest
+sudo docker images
+sudo docker run --name=mysql -d mysql/mysql-server:latest
+
+sudo apt-get install mysql-client
+sudo docker logs mysql
+
+mI5bL4O&yAT6e*::&re8:a?R0573WhL?
+
+sudo docker exec -it mysql bash
+mysql -uroot -p
+ALTER USER 'root'@'localhost' IDENTIFIED BY '12345';
+sudo nano /root/docker/mysql/conf.d/mysql-custom.cnf (optional)
+
+docker run --detach --name=mysql --env="MYSQL_ROOT_PASSWORD=[12345]" --publish 6603:3306 --volume=/root/docker/[mysql]/conf.d:/etc/mysql/conf.d
+
+sudo mkdir -p /root/docker/mysql/conf.d
+sudo nano /root/docker/mysql/conf.d/mysql-custom.cnf
+
+mysql -uroot -p12345 -h127.0.0.1 -P6603 -e 'show global variables like "max_connections"';
+
+
+
+docker run -p 13306:3306 --name mysql -eMYSQL_ROOT_PASSWORD=12345 -d mysql:8.0.32
+
+mysql --host=127.0.0.1 --port=13306 -u root -p
+
+docker inspect mysqlcontainerid --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
+
+mysql --host=127.0.0.1 --port=13306 -u root -p
+
+url: jdbc:mysql://mysql-8.0.32:3306/orderDevDb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+username: user
+password: 12345
+

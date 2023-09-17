@@ -1,0 +1,56 @@
+version: "3.4"
+
+services:
+
+  mysql-8.0.32:
+    image: mysql:8.0.32
+    environment:
+      MYSQL_DATABASE: 'orderDevDb'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: '12345'
+      MYSQL_ROOT_PASSWORD: '12345'
+    ports:
+      - '13306:3306'
+
+  eureka:
+    image: eureka
+    ports:
+      - "8761:8761"
+
+  config-server:
+    image: config-server
+    ports:
+      - "8085:8085"
+    expose:
+      - "8085"
+    links:
+      - eureka
+    depends_on:
+      - eureka
+      - api-gateway
+    restart: always
+
+  api-gateway:
+    image: api-gateway
+    ports:
+      - "9090:9090"
+    depends_on:
+      - eureka
+    links:
+      - eureka
+
+  order-service:
+    image: order
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka
+      - api-gateway
+      - config-server
+      - mysql-8.0.32
+    links:
+      - eureka
+      - api-gateway
+      - mysql-8.0.32
+      - config-server
+    restart: always
