@@ -168,4 +168,90 @@ mysql --host=127.0.0.1 --port=13306 -u root -p
 url: jdbc:mysql://mysql-8.0.32:3306/orderDevDb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
 username: user
 password: 12345
+==================================================================================
+https://www.atlantic.net/dedicated-server-hosting/how-to-install-redis-server-using-docker-container/
+sudo docker pull redis:5.0.0
+sudo docker run -it --name redis -d redis:5.0.0
+sudo docker logs redis
+sudo docker exec -it redis bash
+redis-cli
+==================================================================================
+https://www.dltlabs.com/blog/how-to-setup-configure-a-redis-cluster-easily-573120
+==================================================================================
+sudo docker ps | grep redis
+sudo docker run -v /7000/redis.conf:/usr/local/etc/redis/redis.conf -d --net=host --name redis-7000 redis:5.0.0 redis-server /usr/local/etc/redis/redis.conf
+sudo docker run -v /7001/redis.conf:/usr/local/etc/redis/redis.conf -d --net=host --name redis-7001 redis:5.0.0 redis-server /usr/local/etc/redis/redis.conf
+sudo docker run -v /7002/redis.conf:/usr/local/etc/redis/redis.conf -d --net=host --name redis-7002 redis:5.0.0 redis-server /usr/local/etc/redis/redis.conf
+sudo docker run -v /7003/redis.conf:/usr/local/etc/redis/redis.conf -d --net=host --name redis-7003 redis:5.0.0 redis-server /usr/local/etc/redis/redis.conf
+sudo docker run -v /7004/redis.conf:/usr/local/etc/redis/redis.conf -d --net=host --name redis-7004 redis:5.0.0 redis-server /usr/local/etc/redis/redis.conf
+
+sudo docker exec -it  f6f9b864e5a0 sh
+
+# sudo docker run -it --name redis-7000 -d redis:5.0.0
+redis-cli --cluster create 127.0.0.1:7000 --cluster-replicas 1
+
+sudo docker run -v /7000:/redis --name redis-7000 -p 7000:7000 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+
+
+redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 --cluster-replicas 1
+
+sudo docker run -v /7000/redis.conf:/usr/local/etc/redis/redis.conf -d --net=127.0.0.1 --name redis-7000 redis:5.0.0 redis-server /usr/local/etc/redis/redis.conf
+----------------------------------------------
+sudo docker network create redis-cluster
+sudo docker network ls
+-------------------    --------------------------- docker container run -d fe02cc6a101c
+
+
+
+sudo docker run -d -v /7000:/redis --name redis-7000 -p 7000:7000 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+sudo docker run -d -v /7001:/redis --name redis-7001 -p 7001:7001 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+sudo docker run -d -v /7002:/redis --name redis-7002 -p 7002:7002 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+sudo docker run -d -v /7003:/redis --name redis-7003 -p 7003:7003 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+sudo docker run -d -v /7004:/redis --name redis-7004 -p 7004:7004 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+sudo docker run -d -v /7005:/redis --name redis-7005 -p 7005:7005 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+
+
+sudo docker run -d  redislabs/redisinsight:latest
+----------------------------------------------
+then if exit then run  sudo docker start redis-7000 f6f9b864e5a0
+sudo docker exec -it redis-7000 bash
+redis-cli -p 7000
+sudo docker run -v /7001:/redis --name redis-7001 -p 7001:7001 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+
+sudo docker inspect efc0f839b9f6 --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
+192.168.128.2
+192.168.128.3
+sudo docker exec -it docker-redis-7000-1 bash
+redis-cli --cluster create 192.168.128.2:7000 192.168.128.3:7001 --cluster-replicas 1
+
+# sudo docker run -v /redisinsight:/db -p 8001:8001 --network redis-cluster redislabs/redis-insight
+
+redis-cli -h 172.19.0.3 -p 7000
+SET lalala lilili
+sudo docker exec -it docker-redis-7000-1 bash
+
+docker compose up
+docker compose down
+docker ps -a
+docker image ls
+
+sudo docker run -v docker/7000:/redis --name node-1 -p 7000:7000 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+sudo docker run -v docker/7001:/redis --name node-2 -p 7001:7001 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+sudo docker run -v docker/7002:/redis --name node-3 -p 7002:7002 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+sudo docker run -v docker/7003:/redis --name node-4 -p 7003:7003 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+sudo docker run -v docker/7004:/redis --name node-5 -p 7004:7004 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+sudo docker run -v docker/7005:/redis --name node-6 -p 7005:7005 --network redis-cluster redis:5.0.0 redis-server /redis/redis.conf
+
+sudo docker exec -it redis-7000 bash
+
+docker-redis-node-1-1
+7000
+localhost-redis-cluster
+ sudo docker inspect docker_redis-cluster-compose
+
+redis-docker-redis-node-1-1:7000
+
+ip addr
+sudo ip addr del 192.168.160.1/20 dev br-db6a728af972
+sudo lsof -i -P -n | grep 7001
 

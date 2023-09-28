@@ -1,0 +1,37 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:mysql://mysql-8.0.32:3306/orderDevDb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: user
+    password: 12345
+  cloud:
+    config:
+      refreshInterval: 10s
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: orders-group
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+message: Project configuration loads from external config file
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+redis:
+  ip: 182.17.0.2:7000, 182.17.0.3:7001, 182.17.0.4:7002, 182.17.0.5:7003, 182.17.0.6:7004, 182.17.0.7:7005
+  orderCacheExpireIn: 3600
