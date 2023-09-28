@@ -115,6 +115,8 @@ services:
       MYSQL_ROOT_PASSWORD: '12345'
     ports:
       - '13306:3306'
+    volumes:
+      - ./my_volume:/var/lib/mysql
     networks:
       redis-cluster-compose:
         ipv4_address: 182.17.0.8
