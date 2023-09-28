@@ -1,0 +1,97 @@
+WARNING 2023-09-22 03:50:10,157 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 03:50:13,409 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 09:49:44,727 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 09:49:47,395 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 09:58:38,049 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 09:58:43,667 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 09:59:13,251 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 09:59:15,867 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 09:59:30,841 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 10:00:13,223 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 10:00:15,936 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 10:37:55,335 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 10:38:01,773 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 10:38:31,376 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 10:38:36,031 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 10:58:05,131 django.request Bad Request: /api/instance/9de3af29-0379-4551-bbff-e57dd7bdcf9a/redisgraph/check-module-loaded/
+WARNING 2023-09-22 16:53:10,423 django.request Not Found: /api/instance/9de3af29-0379-4551-bbff-e57dd7bdcf9a/delete-instance/
+WARNING 2023-09-22 16:54:00,776 django.request Bad Request: /api/instance/
+ERROR 2023-09-22 16:54:30,912 redisinsight Connection error while connecting to redis instance: Redis Cluster cannot be connected. Please provide at least one reachable node.
+Traceback (most recent call last):
+  File "./redisinsight/utils/__init__.py", line 199, in _wrapped_view
+  File "./redisinsight/core/views/decorators.py", line 21, in wrapped_view
+  File "./redisinsight/monitoring/views.py", line 155, in get_overview_info
+  File "./redisinsight/core/services/redis_conn.py", line 605, in get_cluster_conn
+  File "./redisinsight/core/services/redis_conn.py", line 164, in get_connection
+  File "./redisinsight/core/services/redis_conn.py", line 238, in create_new_connection
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/client.py", line 368, in __init__
+    pool = connection_pool_cls(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/connection.py", line 160, in __init__
+    self.nodes.initialize()
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/nodemanager.py", line 300, in initialize
+    raise RedisClusterException("Redis Cluster cannot be connected. Please provide at least one reachable node.")
+rediscluster.exceptions.RedisClusterException: Redis Cluster cannot be connected. Please provide at least one reachable node.
+ERROR 2023-09-22 16:54:30,921 django.request Unknown Status Code: /api/instance/9de3af29-0379-4551-bbff-e57dd7bdcf9a/redis-info/
+WARNING 2023-09-22 16:56:32,426 django.request Not Found: /api/instance/064edee0-bf45-4eac-9717-8606418a2961/delete-instance/
+ERROR 2023-09-22 16:56:47,157 redisinsight Connection error while connecting to redis instance: Redis Cluster cannot be connected. Please provide at least one reachable node.
+Traceback (most recent call last):
+  File "./redisinsight/utils/__init__.py", line 199, in _wrapped_view
+  File "./redisinsight/core/views/decorators.py", line 21, in wrapped_view
+  File "./redisinsight/monitoring/views.py", line 155, in get_overview_info
+  File "./redisinsight/core/services/redis_conn.py", line 605, in get_cluster_conn
+  File "./redisinsight/core/services/redis_conn.py", line 164, in get_connection
+  File "./redisinsight/core/services/redis_conn.py", line 238, in create_new_connection
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/client.py", line 368, in __init__
+    pool = connection_pool_cls(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/connection.py", line 160, in __init__
+    self.nodes.initialize()
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/nodemanager.py", line 300, in initialize
+    raise RedisClusterException("Redis Cluster cannot be connected. Please provide at least one reachable node.")
+rediscluster.exceptions.RedisClusterException: Redis Cluster cannot be connected. Please provide at least one reachable node.
+ERROR 2023-09-22 16:56:47,171 django.request Unknown Status Code: /api/instance/064edee0-bf45-4eac-9717-8606418a2961/redis-info/
+WARNING 2023-09-22 16:56:51,695 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 16:57:02,551 redisinsight Error reporting database delete success
+WARNING 2023-09-22 16:57:43,974 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 16:59:26,415 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 16:59:36,354 django.request Bad Request: /api/instance/
+WARNING 2023-09-22 17:00:05,500 waitress 2 thread(s) still running
+WARNING 2023-09-22 17:02:42,907 django.request Bad Request: /api/instance/
+ERROR 2023-09-22 17:03:10,059 redisinsight Connection error while connecting to redis instance: Redis Cluster cannot be connected. Please provide at least one reachable node.
+Traceback (most recent call last):
+  File "./redisinsight/utils/__init__.py", line 199, in _wrapped_view
+  File "./redisinsight/core/views/decorators.py", line 21, in wrapped_view
+  File "./redisinsight/monitoring/views.py", line 155, in get_overview_info
+  File "./redisinsight/core/services/redis_conn.py", line 605, in get_cluster_conn
+  File "./redisinsight/core/services/redis_conn.py", line 164, in get_connection
+  File "./redisinsight/core/services/redis_conn.py", line 238, in create_new_connection
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/client.py", line 368, in __init__
+    pool = connection_pool_cls(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/connection.py", line 160, in __init__
+    self.nodes.initialize()
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/nodemanager.py", line 300, in initialize
+    raise RedisClusterException("Redis Cluster cannot be connected. Please provide at least one reachable node.")
+rediscluster.exceptions.RedisClusterException: Redis Cluster cannot be connected. Please provide at least one reachable node.
+ERROR 2023-09-22 17:03:10,062 django.request Unknown Status Code: /api/instance/7afb7326-972a-4555-b97d-3f39b9359369/redis-info/
+WARNING 2023-09-22 17:03:15,451 redisinsight Error reporting database delete success
+WARNING 2023-09-22 17:07:43,778 django.request Bad Request: /api/instance/
+ERROR 2023-09-22 17:08:24,202 redisinsight Connection error while connecting to redis instance: Redis Cluster cannot be connected. Please provide at least one reachable node.
+Traceback (most recent call last):
+  File "./redisinsight/utils/__init__.py", line 199, in _wrapped_view
+  File "./redisinsight/core/views/decorators.py", line 21, in wrapped_view
+  File "./redisinsight/monitoring/views.py", line 155, in get_overview_info
+  File "./redisinsight/core/services/redis_conn.py", line 605, in get_cluster_conn
+  File "./redisinsight/core/services/redis_conn.py", line 164, in get_connection
+  File "./redisinsight/core/services/redis_conn.py", line 238, in create_new_connection
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/client.py", line 368, in __init__
+    pool = connection_pool_cls(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/connection.py", line 160, in __init__
+    self.nodes.initialize()
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/nodemanager.py", line 300, in initialize
+    raise RedisClusterException("Redis Cluster cannot be connected. Please provide at least one reachable node.")
+rediscluster.exceptions.RedisClusterException: Redis Cluster cannot be connected. Please provide at least one reachable node.
+ERROR 2023-09-22 17:08:24,208 django.request Unknown Status Code: /api/instance/ab9cda07-3e76-47ab-92e1-da1c105dba4f/redis-info/
+WARNING 2023-09-22 17:08:28,289 redisinsight Error reporting database delete success

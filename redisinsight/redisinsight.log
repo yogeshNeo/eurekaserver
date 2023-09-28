@@ -1,0 +1,53 @@
+ERROR 2023-09-28 05:31:49,572 redisinsight Connection error while connecting to redis instance: Redis Cluster cannot be connected. Please provide at least one reachable node.
+Traceback (most recent call last):
+  File "./redisinsight/utils/__init__.py", line 199, in _wrapped_view
+  File "./redisinsight/core/views/decorators.py", line 21, in wrapped_view
+  File "./redisinsight/monitoring/views.py", line 155, in get_overview_info
+  File "./redisinsight/core/services/redis_conn.py", line 605, in get_cluster_conn
+  File "./redisinsight/core/services/redis_conn.py", line 164, in get_connection
+  File "./redisinsight/core/services/redis_conn.py", line 238, in create_new_connection
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/client.py", line 368, in __init__
+    pool = connection_pool_cls(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/connection.py", line 160, in __init__
+    self.nodes.initialize()
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/nodemanager.py", line 300, in initialize
+    raise RedisClusterException("Redis Cluster cannot be connected. Please provide at least one reachable node.")
+rediscluster.exceptions.RedisClusterException: Redis Cluster cannot be connected. Please provide at least one reachable node.
+ERROR 2023-09-28 05:31:49,587 django.request Unknown Status Code: /api/instance/5464e488-a02a-4784-86ae-8073ac52d57c/redis-info/
+WARNING 2023-09-28 05:33:25,832 waitress 1 thread(s) still running
+WARNING 2023-09-28 05:48:35,123 django.request Bad Request: /api/instance/5464e488-a02a-4784-86ae-8073ac52d57c/edit/
+ERROR 2023-09-28 05:48:50,648 redisinsight Connection error while connecting to redis instance: Redis Cluster cannot be connected. Please provide at least one reachable node.
+Traceback (most recent call last):
+  File "./redisinsight/utils/__init__.py", line 199, in _wrapped_view
+  File "./redisinsight/core/views/decorators.py", line 21, in wrapped_view
+  File "./redisinsight/monitoring/views.py", line 155, in get_overview_info
+  File "./redisinsight/core/services/redis_conn.py", line 605, in get_cluster_conn
+  File "./redisinsight/core/services/redis_conn.py", line 164, in get_connection
+  File "./redisinsight/core/services/redis_conn.py", line 238, in create_new_connection
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/client.py", line 368, in __init__
+    pool = connection_pool_cls(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/connection.py", line 160, in __init__
+    self.nodes.initialize()
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/nodemanager.py", line 300, in initialize
+    raise RedisClusterException("Redis Cluster cannot be connected. Please provide at least one reachable node.")
+rediscluster.exceptions.RedisClusterException: Redis Cluster cannot be connected. Please provide at least one reachable node.
+ERROR 2023-09-28 05:48:50,663 django.request Unknown Status Code: /api/instance/5464e488-a02a-4784-86ae-8073ac52d57c/redis-info/
+ERROR 2023-09-28 05:48:58,624 redisinsight Connection error while connecting to redis instance: Redis Cluster cannot be connected. Please provide at least one reachable node.
+Traceback (most recent call last):
+  File "./redisinsight/utils/__init__.py", line 199, in _wrapped_view
+  File "./redisinsight/core/views/decorators.py", line 21, in wrapped_view
+  File "./redisinsight/monitoring/views.py", line 155, in get_overview_info
+  File "./redisinsight/core/services/redis_conn.py", line 605, in get_cluster_conn
+  File "./redisinsight/core/services/redis_conn.py", line 164, in get_connection
+  File "./redisinsight/core/services/redis_conn.py", line 238, in create_new_connection
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/client.py", line 368, in __init__
+    pool = connection_pool_cls(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/connection.py", line 160, in __init__
+    self.nodes.initialize()
+  File "/usr/local/lib/python3.11/site-packages/rediscluster/nodemanager.py", line 300, in initialize
+    raise RedisClusterException("Redis Cluster cannot be connected. Please provide at least one reachable node.")
+rediscluster.exceptions.RedisClusterException: Redis Cluster cannot be connected. Please provide at least one reachable node.
+ERROR 2023-09-28 05:48:58,632 django.request Unknown Status Code: /api/instance/5464e488-a02a-4784-86ae-8073ac52d57c/redis-info/
