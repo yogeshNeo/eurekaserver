@@ -7,7 +7,70 @@ networks:
       config:
         - subnet: 182.17.0.0/16
 
+volumes:
+  kafka-volume:
+  zookeeper-volume:
+
 services:
+
+  mysql-8.0.32:
+    image: mysql:8.0.32
+    environment:
+      MYSQL_DATABASE: 'orderDevDb'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: '12345'
+      MYSQL_ROOT_PASSWORD: '12345'
+    ports:
+      - '13306:3306'
+    volumes:
+      - ./my_volume:/var/lib/mysql
+    networks:
+      redis-cluster-compose:
+        ipv4_address: 182.17.0.8
+
+  config-server:
+    image: config-server
+    ports:
+      - "8085:8085"
+    restart: always
+    networks:
+      - redis-cluster-compose
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      ALLOW_ANONYMOUS_LOGIN: yes
+    volumes:
+      - "zookeeper-volume:/data"
+    ports:
+      - "2181:2181"
+    restart: always
+    networks:
+      - redis-cluster-compose
+
+  kafka:
+    restart: always
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    volumes:
+      - "kafka-volume:/data"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    links:
+      - zookeeper
+    networks:
+      - redis-cluster-compose
 
   redis-node-1:
     image: redis:latest
@@ -106,21 +169,6 @@ services:
     depends_on:
       - redis-cluster-creator
 
-  mysql-8.0.32:
-    image: mysql:8.0.32
-    environment:
-      MYSQL_DATABASE: 'orderDevDb'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: '12345'
-      MYSQL_ROOT_PASSWORD: '12345'
-    ports:
-      - '13306:3306'
-    volumes:
-      - ./my_volume:/var/lib/mysql
-    networks:
-      redis-cluster-compose:
-        ipv4_address: 182.17.0.8
-
   eureka:
     image: eureka
     ports:
@@ -128,18 +176,6 @@ services:
     networks:
       redis-cluster-compose:
         ipv4_address: 182.17.0.9
-
-  config-server:
-    image: config-server
-    ports:
-      - "8085:8085"
-    expose:
-      - "8085"
-    links:
-      - redis-cluster-creator
-    restart: always
-    networks:
-      - redis-cluster-compose
 
   api-gateway:
     image: api-gateway
@@ -156,26 +192,41 @@ services:
     image: order
     ports:
       - "8080:8080"
+    environment:
+      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
     depends_on:
       - mysql-8.0.32
-      - redis-cluster-creator
       - config-server
-      - redis-node-1
-      - redis-node-2
-      - redis-node-3
-      - redis-node-4
-      - redis-node-5
-      - redis-node-6
+      - zookeeper
+      - kafka
+      - redis-cluster-creator
     links:
       - mysql-8.0.32
-      - redis-cluster-creator
       - config-server
-      - redis-node-1
-      - redis-node-2
-      - redis-node-3
-      - redis-node-4
-      - redis-node-5
-      - redis-node-6
+      - zookeeper
+      - kafka
+      - redis-cluster-creator
+
+    restart: always
+    networks:
+      - redis-cluster-compose
+
+  payment-service:
+    image: payment
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_KAFKA_BOOTSTRAPSERVERS: kafka:29092
+    depends_on:
+      - mysql-8.0.32
+      - config-server
+      - zookeeper
+      - kafka
+    links:
+      - mysql-8.0.32
+      - config-server
+      - zookeeper
+      - kafka
     restart: always
     networks:
       - redis-cluster-compose
