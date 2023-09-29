@@ -34,7 +34,8 @@ services:
       - "8085:8085"
     restart: always
     networks:
-      - redis-cluster-compose
+      redis-cluster-compose:
+        ipv4_address: 182.17.0.14
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -175,7 +176,7 @@ services:
       - "8761:8761"
     networks:
       redis-cluster-compose:
-        ipv4_address: 182.17.0.9
+        ipv4_address: 182.17.0.10
 
   api-gateway:
     image: api-gateway
@@ -186,7 +187,7 @@ services:
     restart: always
     networks:
       redis-cluster-compose:
-        ipv4_address: 182.17.0.10
+        ipv4_address: 182.17.0.11
 
   order-service:
     image: order
@@ -206,10 +207,10 @@ services:
       - zookeeper
       - kafka
       - redis-cluster-creator
-
     restart: always
     networks:
-      - redis-cluster-compose
+      redis-cluster-compose:
+        ipv4_address: 182.17.0.12
 
   payment-service:
     image: payment
@@ -229,4 +230,5 @@ services:
       - kafka
     restart: always
     networks:
-      - redis-cluster-compose
+      redis-cluster-compose:
+        ipv4_address: 182.17.0.13
