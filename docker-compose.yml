@@ -49,7 +49,8 @@ services:
       - "2181:2181"
     restart: always
     networks:
-      - redis-cluster-compose
+      redis-cluster-compose:
+        ipv4_address: 182.17.0.15
 
   kafka:
     restart: always
@@ -71,7 +72,8 @@ services:
     links:
       - zookeeper
     networks:
-      - redis-cluster-compose
+      redis-cluster-compose:
+        ipv4_address: 182.17.0.16
 
   redis-node-1:
     image: redis:latest
