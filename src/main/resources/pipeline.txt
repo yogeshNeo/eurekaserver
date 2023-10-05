@@ -1,0 +1,96 @@
+--------------------- jenkins file -------------------
+
+pipeline {
+    agent any
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '2'))
+    }
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+    }
+    tools{
+        gradle 'gradle_8.2.1'
+    }
+    // https://sweetcode.io/how-to-build-and-push-docker-images-to-docker-hub-using-jenkins-pipeline/
+    stages {
+        stage('Build Gradle') {
+            steps {
+                echo '::::::::::   Build Gradle Start ::::::::'
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/yogesh147/eurekaserver']])
+                sh "chmod +x gradlew"
+                sh './gradlew clean bootjar'
+                echo '::::::::::   Build Gradle complete  ::::::::'
+
+            }
+        }
+        stage('Build Docker') {
+            steps {
+                echo '::::::::::   Build Docker Start ::::::::'
+                sh 'docker build -t yogeshch/eureka .'
+                echo '::::::::::   Build Docker Complete  ::::::::'
+            }
+        }
+        stage('Login Docker') {
+            steps {
+                echo '::::::::::   Login Docker Start ::::::::'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                echo '::::::::::   Login Docker Complete ::::::::'
+            }
+        }
+        stage('Push Docker') {
+            steps {
+                echo '::::::::::   Push Docker Start ::::::::'
+                sh 'docker push yogeshch/eureka'
+                echo '::::::::::   Push Docker Complete ::::::::'
+            }
+        }
+        stage('Run Docker') {
+            steps {
+                echo '::::::::::   Run Docker Start ::::::::'
+                sh 'docker run -d -p 8761:8761 yogeshch/eureka:latest .'
+                echo '::::::::::   Run Docker Complete ::::::::'
+            }
+        }
+    }
+    post {
+      always {
+      sh 'docker logout'
+      echo ':::::::::: Docker Hub Logout ::::::::'
+        }
+    }
+}
+
+------------------------ remove docker container  ----------------------------------------------------------
+
+pipeline {
+    agent any
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '2'))
+    }
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+    }
+    stages {
+        stage('Login Docker') {
+            steps {
+                echo '::::::::::   Login Docker Start ::::::::'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                echo '::::::::::   Login Docker Complete ::::::::'
+            }
+        }
+        stage('Run Docker') {
+            steps {
+                echo "::::::::::   Remove Docker Container :::::::: ${dockerContainerName}"
+                sh 'docker rm -f $dockerContainerName && echo "container $dockerContainerName removed" || echo "container $dockerContainerName does not exist"'
+                echo '::::::::::   Remove Docker Complete ::::::::'
+            }
+        }
+    }
+    post {
+      always {
+      sh 'docker logout'
+      echo ':::::::::: Docker Hub Logout ::::::::'
+        }
+    }
+}
+
