@@ -266,3 +266,153 @@ sudo systemctl start jenkins.service
 sudo systemctl status jenkins
 sudo ufw status
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+yogeshch147@gmail.com  dockerhub@123
+
+https://linuxconfig.org/how-to-install-kubernetes-on-ubuntu-22-04-jammy-jellyfish-linux
+https://www.linuxtechi.com/how-to-install-minikube-on-ubuntu/
+
+minikube dashboard
+2009  minikube dashboard
+ 2010  docker image ls
+ 2011  docker run gcr.io/k8s-minikube/kicbase
+ 2012  docker run gcr.io/k8s-minikube/kicbase:v0.0.40
+ 2013  sudo docker run gcr.io/k8s-minikube/kicbase
+ 2014  sudo docker run gcr.io/k8s-minikube/kicbase:v0.0.40
+ 2015  docker ps
+ 2016  docker ps -a
+ 2017  docker rm f432e9f7c49e 3e07ae0cf7f2
+ 2018  docker ps -a
+ 2019  docker run 0491b5511633
+ 2020  minikube dashboard
+ 2021  minikube start
+ 2022  sudo service cri-docker.socket restart
+ 2023  docker ps -a
+ 2024  docker run minikube
+ 2025  docker container start --attach -i minikube
+ 2026  docker container start - minikube
+ 2027  docker container start  minikube
+ 2028  docker ps -a
+ 2029  kubectl get nodes
+ 2030  docker stop minikube
+ 2031  docker rm  minikube
+ 2032  docker ps -a
+ 2033  minikube start --driver=docker
+ 2034  minikube addons enable metrics-server
+ 2035  minikube start --addons=ingress --cpus=2 --cni=flannel --install-addons=true --kubernetes-version=stable --memory=6g
+ 2036  minikube status
+ 2037  kubectl cluster-info
+ 2038  minikube addons enable logviewer
+ 2039  kubectl cluster-info
+ 2040  minikube addons list
+ 2041  minikube dashboard
+ 2042  minikube --help
+
+kubectl delete pod nginx
+
+
+--------------------------------------------------------------------------------------------------------------------------
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.43.206:6443 --token jhr565.mqvo00xdvu0eos4m \
+	--discovery-token-ca-cert-hash sha256:6edc86d22ed6cc58554cb8eedd138c14c007e6648fac5b8e463b7d09ce423f6a
+
+-----------------------------------------------------------------------------------------------------------------------
+
+	 1994  sudo hostnamectl set-hostname kubernetes-master
+     1995  kubectl apply -f api-gateway-deployment.yaml
+     1996  kubectl apply -f api-gateway-service.yaml
+     1997  kubectl apply -f eureka-deployment.yaml
+     1998  kubectl apply -f eureka-service.yaml
+     1999  kubectl apply -f redis-cluster-compose-networkpolicy.yaml
+     2000  kubectl apply -f redis-cluster-compose-networkpolic.yaml
+     2001  kubectl apply -f redis-cluster-compose-networkpolicy.yaml
+     2002  sudo kubectl apply -f redis-cluster-compose-networkpolicy.yaml
+     2003  clear
+     2004  sudo kubectl apply -f redis-cluster-compose-networkpolicy.yaml
+     2005  clear
+     2006  kubectl apply -f redis-cluster-compose-networkpolicy.yaml
+     2007  kubectl get pods --all-namespaces
+     2008  kubectl apply -f redis-cluster-compose
+     2009  kubectl get crds
+     2010  kubectl get redis-cluster-compose  -A
+     2011  kubectl get redis-cluster-compose-networkpolicy  -A
+     2012  get crds
+     2013  kubectl get crds
+     2014  kubectl apply -f custom-crd.yaml
+     2015  kubectl apply -f redis-cluster-compose-networkpolicy.yaml
+     2016  kubectl get crds
+     2017  kubectl apply -f redis-cluster-compose-networkpolicy.yaml
+     2018  kubectl get pods
+     2019  kubectl get deployments
+     2020  kubectl get services
+     2021  kubectl get deployment
+     2022  kubectl describe deployment  api-gateway-
+     2023  kubectl describe deployment  api-gateway
+     2024  kubectl describe deployment eureka
+     2025  kubectl get pods
+     2026  kubectl get services
+     2027  kubectl get deployments
+     2028  kubectl apply -f redis-cluster-compose-networkpolicy.yaml
+     2029  sudo kubectl apply -f eureka-deployment.yaml
+     2030  kubectl apply -f eureka-deployment.yaml
+     2031  kubectl apply -f eureka-servicer.yaml
+     2032  kubectl apply -f eureka-service.yaml
+     2033  kubectl apply -f api-gateway-deployment.yaml
+     2034  kubectl apply -f api-gateway-service.yaml
+     2035  docker login
+     2036  kubectl apply -f api-gateway-deployment.yaml
+     2037  kubectl apply -f api-gateway-service.yaml
+     2038  docker image ls
+     2039  kubectl apply -f api-gateway-deployment.yaml
+     2040  kubectl apply -f api-gateway-service.yaml
+     2041  kubectl get deployments
+     2042  kubectl apply -f eureka-deployment.yaml
+     2043  kubectl apply -f eureka-service.yaml
+     2044  kubectl apply -f eureka-deployment.yaml
+     2045  kubectl apply -f eureka-service.yaml
+     2046  kubectl get deployments
+     2047  kubectl cluster-info
+     2048  kubectl get svc
+     2049  kubectl get pod
+     2050  kubectl get pods
+     2051  kubectl logs api-gateway-97549d848-wsz74
+     2052  kubectl get pods
+     2053  kubectl logs api-gateway-97549d848-wsz74
+     2054  kubectl get svc
+     2055  kubectl get pods
+     2056  kubectl logs eureka-746786d597-gxkhz
+     2057  kubectl get svc
+     2058  kubectl logs api-gateway-97549d848-wsz74
+     2059  kubectl get svc
+     2060  kubectl get pods
+     2061  kubectl logs api-gateway-bbb77496c-6ltl8
+     2062  kubectl get svc
+     2063  minikube ip
+     2064  kubectl get pods
+     2065  kubectl get svc
+     2066  kubectl apply -f eureka-deployment.yaml
+     2067  kubectl apply -f eureka-service.yaml
+     2068  kubectl get svc
+     2069  kubectl get pods
+     2070  kubectl logs eureka-5ccf5b6d9f-n58rh
+     2071  kubectl get pods
+     2072  kubectl get svc
+     2073  minikube ip
+     2074  kubectl get pods
+     2075  kubectl logs api-gateway-544f6d5b79-8l6fd
+     2076  ls
+-----------------------------------------------------------------------------------------------------------------------
